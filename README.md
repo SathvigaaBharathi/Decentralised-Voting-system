@@ -13,6 +13,5 @@ Make sure an Ethereum node is running (e.g., Ganache for local development).
 
 Deploy the smart contract for voting on the Ethereum blockchain (you can use a simple contract written in Solidity for this).
 
-Start the Flask app by running:
+Start the Flask app by running
 
-Open the browser and navigate to http://127.0.0.1:5000/ to access the voting page.
