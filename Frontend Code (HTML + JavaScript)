@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decentralized Voting System</title>
+    <script>
+        async function vote(candidateId) {
+            const response = await fetch('/vote', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `candidate_id=${candidateId}`
+            });
+
+            const data = await response.json();
+            if (data.status === 'success') {
+                alert('Vote submitted successfully! Transaction Hash: ' + data.txn_hash);
+            } else {
+                alert('Error: ' + data.error);
+            }
+        }
+
+        async function getVotes(candidateId) {
+            const response = await fetch(`/get_votes/${candidateId}`);
+            const data = await response.json();
+            document.getElementById(`votes-${candidateId}`).innerText = data.votes;
+        }
+    </script>
+</head>
+<body>
+    <h1>Decentralized Voting System</h1>
+    <div>
+        <h2>Vote for Your Favorite Candidate</h2>
+        <button onclick="vote(1)">Vote for Candidate 1</button>
+        <button onclick="vote(2)">Vote for Candidate 2</button>
+    </div>
+
+    <h2>Vote Count</h2>
+    <div>
+        <p>Candidate 1: <span id="votes-1">0</span> votes <button onclick="getVotes(1)">Get Votes</button></p>
+        <p>Candidate 2: <span id="votes-2">0</span> votes <button onclick="getVotes(2)">Get Votes</button></p>
+    </div>
+</body>
+</html>
